@@ -9,13 +9,17 @@
 #include <random>
 #include <string>
 
-#define END 0
-#define RESTART 1
-#define CONTINUE 2
+#define PROGRAM_END 0
+#define GAME_END 1
+#define GAME_CONTINUE 2
+#define GAME_RESTART 3
 
 #define EASY_MAX_NUMBER 64
 #define NORMAL_MAX_NUMBER 128
 #define HARD_MAX_NUMBER 1024
+
+#define NORMAL_GUESS_TIMES 7
+#define HARD_GUESS_TIMES 8
 
 using std::cin;
 using std::cout;
@@ -26,25 +30,51 @@ using std::stoi;
 
 unsigned int ChooseMaxNumber();
 unsigned int GenerateRandom(unsigned int maxNumber);
-int GuessNumber(unsigned int maxNumber);
-void DealGameReturn(int gameReturn);
+int DealGuessNumber(unsigned int randomNumber, unsigned int guessNumber, unsigned int &minNumber, unsigned int &maxNumber);
+int GuessNumber(unsigned int maxNumber, unsigned int maxGuessTimes);
+int DealGameReturn(int gameReturn);
 
 int main()
 {
-    unsigned int maxNumber;
-    int gameReturn = 0;
+    unsigned int maxNumber, maxGuessTimes;
+    int gameReturn, dealedReturn;
+    char choice;
     cout << "游戏开始！" << endl;
     maxNumber = ChooseMaxNumber();
-    cout << "1" << endl;
     while(true)
     {
         gameReturn = GuessNumber(maxNumber);
-        DealGameReturn(gameReturn);
-        if(gameReturn == -1) //用户选择退出
+        if(gameReturn == PROGRAM_END)
         {
             break;
         }
+        dealedReturn = DealGameReturn(gameReturn);
+        if(dealedReturn == -1)
+        {
+            cout << "程序错误地结束。" << endl;
+            cout << "按回车健退出……" << endl;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            return -1;
+        }
+        if(dealedReturn == PROGRAM_END) //用户选择退出
+        {
+            break;
+        }
+        if(dealedReturn == GAME_RESTART)
+        {
+            cout << "游戏重新开始！" << endl;
+            cout << "是否重新选择难度？(y/n)" << endl;
+            cin >> choice;
+            if(choice == 'y' || choice == 'Y')
+            {
+                maxNumber = ChooseMaxNumber();
+            }
+        }
     }
+    cout << "感谢参与游戏！" << endl;
+    cout << "按回车健退出……" << endl;
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cin.get();
     return 0;
 }
 
@@ -55,9 +85,9 @@ unsigned int ChooseMaxNumber()
     while (true)
     {
         cout << "请选择难度:" << endl;
-        cout << "1.简单（1-" << EASY_MAX_NUMBER << "）" << endl;
-        cout << "2.中等（1-" << NORMAL_MAX_NUMBER << "）" << endl;
-        cout << "3.困难（1-" << HARD_MAX_NUMBER << "）" << endl;
+        cout << "1.简单（1-" << EASY_MAX_NUMBER << "，无猜测次数限制）" << endl;
+        cout << "2.中等（1-" << NORMAL_MAX_NUMBER << "，限制猜测次数" << NORMAL_GUESS_TIMES << "）" << endl;
+        cout << "3.困难（1-" << HARD_MAX_NUMBER << "，限制猜测次数" << HARD_GUESS_TIMES << "）" << endl;
         cout << "4.自定义" << endl;
         cin >> difficulty;
         if (difficulty >= 1 && difficulty <= 3)
@@ -67,7 +97,7 @@ unsigned int ChooseMaxNumber()
         else if(difficulty == 4)
         {
             cout << "请输入最大猜测值：" << endl;
-            //需加入正确输入判别
+            //需加入输入侦测，确保输入为数字且大于4
             cin >> maxNumber;
             break;
         }
@@ -90,66 +120,65 @@ unsigned int GenerateRandom(unsigned int maxNumber)
 {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(1, maxNumber);
+    std::uniform_int_distribution<> dis(2, maxNumber - 1);
     unsigned int randomNumber = dis(gen);
     return randomNumber;
 }
 
-int JudgePosition(unsigned int randomNumber, unsigned int guessNumber, unsigned int &minNumber, unsigned int &maxNumber)
+
+
+//函数作用：处理猜测的数字并更改游戏的猜测范围
+int DealGuessNumber(unsigned int randomNumber, unsigned int guessNumber, unsigned int &minNumber, unsigned int &maxNumber)
 {
     if (guessNumber <= minNumber || guessNumber >= maxNumber)
     {
         cout << "输入的数字不在范围内，" << endl;
-        return CONTINUE;
+        return GAME_CONTINUE;
     }
     if (guessNumber < randomNumber)
     {
         cout << "太小了！" << endl;
         minNumber = guessNumber;
-        return CONTINUE;
+        return GAME_CONTINUE;
     }
     if (guessNumber > randomNumber)
     {
         cout << "太大了！" << endl;
         maxNumber = guessNumber;
-        return CONTINUE;
+        return GAME_CONTINUE;
     }
     if (minNumber + 2 == maxNumber)
     {
         cout << "你已经没有机会了，正确答案是：" << randomNumber << endl;
-        return END;
+        return GAME_END;
     }
     if (guessNumber == randomNumber)
     {
         cout << "恭喜你，猜对了！" << endl;
-        return END;
+        return GAME_END;
     }
     return -1;
 }
 
-int GuessNumber(unsigned int maxNumber)
+//函数作用：猜一个数字（自动生成随机数）
+int GuessNumber(unsigned int maxNumber, unsigned int maxGuessTimes)
 {
     unsigned int randomNumber = GenerateRandom(maxNumber);
-    unsigned int guessNumber;
+    unsigned int guessNumber, guessTime;
     unsigned int minNumber = 1;
     string input;
     while (true)
     {
-        cout << "请输入一个从" << minNumber << "到" << maxNumber << "之内的整数：" << endl;
-        cout << "（输入exit或quit退出游戏）" << endl;
-        cout << "（输入restart或res重新开始游戏）" << endl;
+        cout << "输入一个从" << minNumber << "到" << maxNumber << "之内的整数：" << endl;
+        cout << "（输入exit或quit退出程序，输入restart或res重新开始游戏）" << endl;
         cin >> input;
         if (input == "exit" || input == "quit")
         {
-            cout << "感谢参与游戏！" << endl;
-            cout << "按回车健退出……" << endl;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            cin.get();
-            return -1;
+            return PROGRAM_END;
         }
         if(input == "res" ||input == "restart")
         {
-            return RESTART;
+            return GAME_RESTART;
         }
         try
         {
@@ -157,66 +186,54 @@ int GuessNumber(unsigned int maxNumber)
         }
         catch (std::invalid_argument &e)
         {
-            cout << "检测输入不可识别，" << endl;
+            cout << "输入不可识别，" << endl;
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
         }
         //判断输入的大小（仅数字）
-        int inputConclusion = JudgePosition(randomNumber, guessNumber, minNumber, maxNumber);
+        int inputConclusion = DealGuessNumber(randomNumber, guessNumber, minNumber, maxNumber);
         //如果返回值为结束信号，中断循环
-        if(inputConclusion == END)
+        if(inputConclusion == GAME_END)
         {
             break;
         }
         // switch(inputConclusion)
         // {
         //     case CONTINUE: break;
-        //     case END: break;
+        //     case GAME_END: break;
         //     default: break;
         // }
     }
-    return END;
+    return GAME_END;
 }
 
-void DealGameReturn(int gameReturn)
+int DealGameReturn(int gameReturn)
 {
     char choice;
-    unsigned maxNumber;
     switch(gameReturn)
     {
-        case END:
+        case GAME_END:
         cout << "是否继续游戏？(y/n)" << endl;
         cin >> choice;
         if(choice == 'y' || choice == 'Y')
         {
-            cout << "游戏重新开始！" << endl;
-            cout << "是否重新选择难度？(y/n)" << endl;
-            cin >> choice;
-            if(choice == 'y' || choice == 'Y')
-            {
-                maxNumber = ChooseMaxNumber();
-            }
+            return GAME_CONTINUE;
         }
         else
         {
-            cout << "感谢参与游戏！" << endl;
-            cout << "按回车健退出……" << endl;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            cin.get();
+            return PROGRAM_END;
         }
         break;
-        case RESTART:
-        cout << "游戏重新开始！" << endl;
-        cout << "是否重新选择难度？(y/n)" << endl;
-        cin >> choice;
-        if(choice == 'y' || choice == 'Y')
-        {
-            maxNumber = ChooseMaxNumber();
-        }
+        case GAME_RESTART:
+        return GAME_CONTINUE;
         break;
-        case CONTINUE:
+        case GAME_CONTINUE:
+        return GAME_CONTINUE;
         break;
-        default: break;
+        default:
+        return -1;
+        break;
     }
+    return -1;
 }
