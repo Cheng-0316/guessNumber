@@ -37,9 +37,5 @@ guessNumber myGame;
 int main()
 {
     myGame.RepeatedlyPlay();
-    // myGame.ComputerGuessDemo();
-    // std::cout << "按回车健退出……" << std::endl;
-    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    // std::cin.get();
     return 0;
 }

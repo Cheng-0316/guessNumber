@@ -289,6 +289,15 @@ void guessNumber::RepeatedlyPlay()
     SetDifficulty();
     while (gameStatus != WHOLE_GAME_END_NORMALLY)
     {
+        std::cout << "是否观看演示？(y/n)" << std::endl;
+        std::cin >> choice;
+        if (choice == 'y' || choice == 'Y')
+        {
+            ComputerGuessDemo();
+            std::cout << "按回车健结束……" << std::endl;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.get();
+        }
         std::cout << "你的金钱目前为：" << wealth << std::endl;
         SinglePlay();
         SingleEndDealing();
