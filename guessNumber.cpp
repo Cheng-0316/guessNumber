@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <random>
 #include <string>
 
@@ -26,7 +26,7 @@ int guessNumber::InputStringtoInt(std::string input)
     catch(const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
-        std::cout << "ÊäÈë²»¿ÉÊ¶±ğ£¬" << std::endl;
+        std::cout << "è¾“å…¥ä¸å¯è¯†åˆ«ï¼Œ" << std::endl;
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         gameStatus = INPUT_UNAVAILABLE;
@@ -40,12 +40,12 @@ void guessNumber::ChooseDifficulty()
     do
     {   
         gameStatus = GAME_CONTINUE;
-        std::cout << "ÇëÑ¡ÔñÄÑ¶È:" << std::endl;
-        std::cout << "1£º¼òµ¥£¨1-" << EASY_MAX_NUMBER << "£¬ÎŞ²Â²â´ÎÊıÏŞÖÆ£©" << std::endl;
-        std::cout << "2£ºÖĞµÈ£¨1-" << NORMAL_MAX_NUMBER << "£¬ÏŞÖÆ²Â²â´ÎÊı" << NORMAL_LIMITED_TIMES << "£©" << std::endl;
-        std::cout << "3£ºÀ§ÄÑ£¨1-" << HARD_MAX_NUMBER << "£¬ÏŞÖÆ²Â²â´ÎÊı" << HARD_LIMITED_TIMES << "£©" << std::endl;
-        std::cout << "ÆäËûÊı×Ö£º×Ô¶¨Òå" << std::endl;
-        std::cout << "Ñ¡ÔñÄÑ¶È£º" << std::flush;
+        std::cout << "è¯·é€‰æ‹©éš¾åº¦:" << std::endl;
+        std::cout << "1ï¼šç®€å•ï¼ˆ1-" << EASY_MAX_NUMBER << "ï¼Œæ— çŒœæµ‹æ¬¡æ•°é™åˆ¶ï¼‰" << std::endl;
+        std::cout << "2ï¼šä¸­ç­‰ï¼ˆ1-" << NORMAL_MAX_NUMBER << "ï¼Œé™åˆ¶çŒœæµ‹æ¬¡æ•°" << NORMAL_LIMITED_TIMES << "ï¼‰" << std::endl;
+        std::cout << "3ï¼šå›°éš¾ï¼ˆ1-" << HARD_MAX_NUMBER << "ï¼Œé™åˆ¶çŒœæµ‹æ¬¡æ•°" << HARD_LIMITED_TIMES << "ï¼‰" << std::endl;
+        std::cout << "å…¶ä»–æ•°å­—ï¼šè‡ªå®šä¹‰" << std::endl;
+        std::cout << "é€‰æ‹©éš¾åº¦ï¼š" << std::flush;
         std::cin >> input;
         difficulty = InputStringtoInt(input);
     } while (gameStatus != GAME_CONTINUE);
@@ -78,12 +78,12 @@ void guessNumber::SetUserDefinedMaxRandom()
     do
     {
         gameStatus = GAME_CONTINUE;
-        std::cout << "ÇëÊäÈë×Ô¶¨Òå×î´ó²Â²âÖµ£º" << std::flush;
+        std::cout << "è¯·è¾“å…¥è‡ªå®šä¹‰æœ€å¤§çŒœæµ‹å€¼ï¼š" << std::flush;
         std::cin >> input;
         recoveryMax = InputStringtoInt(input);
         if (recoveryMax < 2)
         {
-            std::cout << "ÇëÈ·±£ÊäÈëÖµ´óÓÚ1£¬" << std::endl;
+            std::cout << "è¯·ç¡®ä¿è¾“å…¥å€¼å¤§äº1ï¼Œ" << std::endl;
             continue;
         }
     } while (gameStatus != GAME_CONTINUE);
@@ -95,8 +95,8 @@ void guessNumber::SetUserDefinedMaxGuessLimit()
     do
     {
         gameStatus = GAME_CONTINUE;
-        std::cout << "£¨ÊäÈë¸ºÊı´ú±íÎŞÏŞÖÆ£©" << std::endl;
-        std::cout << "ÇëÊäÈë×Ô¶¨Òå×î´ó²Â²â´ÎÊı£º" << std::flush;
+        std::cout << "ï¼ˆè¾“å…¥è´Ÿæ•°ä»£è¡¨æ— é™åˆ¶ï¼‰" << std::endl;
+        std::cout << "è¯·è¾“å…¥è‡ªå®šä¹‰æœ€å¤§çŒœæµ‹æ¬¡æ•°ï¼š" << std::flush;
         std::cin >> input;
         recoveryGuessLimit = InputStringtoInt(input);
     } while (gameStatus != GAME_CONTINUE);
@@ -120,7 +120,7 @@ void guessNumber::SetDifficulty()
     }
     InbuiltDifficultyFilling();
     recoveryMax++;
-    //´Ë´¦µÄÖØÖÃÄÑ¶ÈÊÇÎªÁË×Ô¶¯Ìî³ä
+    //æ­¤å¤„çš„é‡ç½®éš¾åº¦æ˜¯ä¸ºäº†è‡ªåŠ¨å¡«å……
     ResetDifficulty();
 }
 
@@ -128,18 +128,18 @@ void guessNumber::GenerateRandom()
 {
     std::random_device rd;
     std::mt19937 gen(rd());
-    //¼õÒ»È·±£Éú³ÉµÄËæ»úÊıÔÚ×î´óÖµÒÔÄÚ£¬·ÀÖ¹ÆäµÈÓÚ×î´óÖµ£¬µ¼ÖÂÓÃ»§ÎŞ·¨²Âµ½
+    //å‡ä¸€ç¡®ä¿ç”Ÿæˆçš„éšæœºæ•°åœ¨æœ€å¤§å€¼ä»¥å†…ï¼Œé˜²æ­¢å…¶ç­‰äºæœ€å¤§å€¼ï¼Œå¯¼è‡´ç”¨æˆ·æ— æ³•çŒœåˆ°
     std::uniform_int_distribution<> dis(1, maxGuessLimit - 1);
     randomNumber = dis(gen);
-    // std::cout << "£¨µ÷ÊÔĞÅÏ¢£ºËæ»úÊıÎª " << randomNumber << "£©" << std::endl;
+    // std::cout << "ï¼ˆè°ƒè¯•ä¿¡æ¯ï¼šéšæœºæ•°ä¸º " << randomNumber << "ï¼‰" << std::endl;
 }
 
 bool guessNumber::RangeJudgement(int inputNumber)
 {
-    //ÅĞ¶ÏÓÃ»§ÊäÈëµÄÖµÊÇ·ñÔÚ·¶Î§ÄÚ
+    //åˆ¤æ–­ç”¨æˆ·è¾“å…¥çš„å€¼æ˜¯å¦åœ¨èŒƒå›´å†…
     if (inputNumber <= minGuessLimit || inputNumber >= maxGuessLimit)
     {
-        std::cout << "ÊäÈëµÄÊı×Ö²»ÊôÓÚÏŞÖÆ·¶Î§£¬" << std::endl;
+        std::cout << "è¾“å…¥çš„æ•°å­—ä¸å±äºé™åˆ¶èŒƒå›´ï¼Œ" << std::endl;
         return false;
     }
     return true;
@@ -153,13 +153,13 @@ bool guessNumber::SizeJudgement()
     }
     if (guessNumber < randomNumber)
     {
-        std::cout << "Ì«Ğ¡ÁË£¡" << std::endl;
+        std::cout << "å¤ªå°äº†ï¼" << std::endl;
         minGuessLimit = guessNumber;
         gameStatus = GAME_CONTINUE;
     }
     if (guessNumber > randomNumber)
     {
-        std::cout << "Ì«´óÁË£¡" << std::endl;
+        std::cout << "å¤ªå¤§äº†ï¼" << std::endl;
         maxGuessLimit = guessNumber;
         gameStatus = GAME_CONTINUE;
     }
@@ -176,14 +176,14 @@ void guessNumber::DealPlayerGuess()
         }
         if (SizeJudgement())
         {
-            std::cout << "¹§Ï²Äã£¬²Â¶ÔÁË£¡" << std::endl;
+            std::cout << "æ­å–œä½ ï¼ŒçŒœå¯¹äº†ï¼" << std::endl;
             WealthIncrease();
             gameStatus = SINGLE_GAME_END_NORMALLY;
             return;
         }
         if (limitedGuessTimes == 0 || minGuessLimit + 2 == maxGuessLimit)
         {
-            std::cout << "ÄãÒÑ¾­Ã»ÓĞ»ú»áÁË£¬ÕıÈ·´ğ°¸ÊÇ£º" << randomNumber << std::endl;
+            std::cout << "ä½ å·²ç»æ²¡æœ‰æœºä¼šäº†ï¼Œæ­£ç¡®ç­”æ¡ˆæ˜¯ï¼š" << randomNumber << std::endl;
             gameStatus = SINGLE_GAME_END_NORMALLY;
         }
     }
@@ -205,16 +205,16 @@ void guessNumber::SinglePlay()
     do
     {
         gameStatus = GAME_CONTINUE;
-        std::cout << "£¨ÊäÈëexit»òquitÍË³ö³ÌĞò£¬ÊäÈërestart»òresÖØĞÂ¿ªÊ¼ÓÎÏ·£©" << std::endl;
+        std::cout << "ï¼ˆè¾“å…¥exitæˆ–quité€€å‡ºç¨‹åºï¼Œè¾“å…¥restartæˆ–resé‡æ–°å¼€å§‹æ¸¸æˆï¼‰" << std::endl;
         if (limitedGuessTimes < 0)
         {
-            std::cout << "ÎŞÏŞÖÆ²Â²â´ÎÊı£¬" << std::flush;
+            std::cout << "æ— é™åˆ¶çŒœæµ‹æ¬¡æ•°ï¼Œ" << std::flush;
         }
         else
         {
-            std::cout << "»¹Ê£" << limitedGuessTimes << "²Â²â´ÎÊı£¬" << std::flush;
+            std::cout << "è¿˜å‰©" << limitedGuessTimes << "çŒœæµ‹æ¬¡æ•°ï¼Œ" << std::flush;
         }
-        std::cout << "ÊäÈëÒ»¸ö´Ó" << minGuessLimit << "µ½" << maxGuessLimit << "Ö®ÄÚµÄÕûÊı£º" << std::flush;
+        std::cout << "è¾“å…¥ä¸€ä¸ªä»" << minGuessLimit << "åˆ°" << maxGuessLimit << "ä¹‹å†…çš„æ•´æ•°ï¼š" << std::flush;
         std::cin >> input;
         SpecialInputJudgement(input);
         if (gameStatus == WHOLE_GAME_END_NORMALLY || gameStatus == GAME_RESTART)
@@ -240,7 +240,7 @@ void guessNumber::SingleEndDealing()
     switch (gameStatus)
     {
     case SINGLE_GAME_END_NORMALLY:
-        std::cout << "ÊÇ·ñ¼ÌĞøÓÎÏ·£¿(y/n)" << std::endl;
+        std::cout << "æ˜¯å¦ç»§ç»­æ¸¸æˆï¼Ÿ(y/n)" << std::endl;
         std::cin >> choice;
         if (choice == 'y' || choice == 'Y')
         {
@@ -266,52 +266,52 @@ void guessNumber::SingleEndDealing()
 
 void guessNumber::ComputerGuessDemo()
 {
-    std::cout << "µçÄÔ¶ş·Ö·¨ËÑË÷ÑİÊ¾¿ªÊ¼¡£" << std::endl;
+    std::cout << "ç”µè„‘äºŒåˆ†æ³•æœç´¢æ¼”ç¤ºå¼€å§‹ã€‚" << std::endl;
     difficulty = 1;
     InbuiltDifficultyFilling();
     ResetDifficulty();
     GenerateRandom();
     do
     {
-        std::cout << "µ±Ç°·¶Î§£º(" << minGuessLimit << "," << maxGuessLimit << ")" << std::endl;
+        std::cout << "å½“å‰èŒƒå›´ï¼š(" << minGuessLimit << "," << maxGuessLimit << ")" << std::endl;
         guessNumber = (minGuessLimit + maxGuessLimit) / 2;
-        std::cout << "µçÄÔ¶ş·ÖËÑË÷£º" << std::endl;
-        std::cout << "(" << minGuessLimit << " + " << maxGuessLimit << ") ¡Â 2 = " << guessNumber << std::endl;
+        std::cout << "ç”µè„‘äºŒåˆ†æœç´¢ï¼š" << std::endl;
+        std::cout << "(" << minGuessLimit << " + " << maxGuessLimit << ") Ã· 2 = " << guessNumber << std::endl;
         SizeJudgement();
     } while (guessNumber != randomNumber);
-    std::cout << "µçÄÔ¶ş·Ö·¨ËÑË÷ÑİÊ¾Íê±Ï£¬Ëæ»úÊıÎª£º" << guessNumber << "¡£" << std::endl;
+    std::cout << "ç”µè„‘äºŒåˆ†æ³•æœç´¢æ¼”ç¤ºå®Œæ¯•ï¼Œéšæœºæ•°ä¸ºï¼š" << guessNumber << "ã€‚" << std::endl;
 }
 
 void guessNumber::RepeatedlyPlay()
 {
     char choice;
-    std::cout << "ÓÎÏ·¿ªÊ¼£¡°æ±¾£º" << GAME_VERSION << std::endl;
+    std::cout << "æ¸¸æˆå¼€å§‹ï¼ç‰ˆæœ¬ï¼š" << GAME_VERSION << std::endl;
     SetDifficulty();
     while (gameStatus != WHOLE_GAME_END_NORMALLY)
     {
-        std::cout << "ÊÇ·ñ¹Û¿´ÑİÊ¾£¿(y/n)" << std::endl;
+        std::cout << "æ˜¯å¦è§‚çœ‹æ¼”ç¤ºï¼Ÿ(y/n)" << std::endl;
         std::cin >> choice;
         if (choice == 'y' || choice == 'Y')
         {
             ComputerGuessDemo();
-            std::cout << "°´»Ø³µ½¡½áÊø¡­¡­" << std::endl;
+            std::cout << "æŒ‰å›è½¦å¥ç»“æŸâ€¦â€¦" << std::endl;
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cin.get();
         }
-        std::cout << "ÄãµÄ½ğÇ®Ä¿Ç°Îª£º" << wealth << std::endl;
+        std::cout << "ä½ çš„é‡‘é’±ç›®å‰ä¸ºï¼š" << wealth << std::endl;
         SinglePlay();
         SingleEndDealing();
         if (gameStatus == -1)
         {
-            std::cout << "ÓÎÏ·´íÎóµØ½áÊø¡£" << std::endl;
-            std::cout << "°´»Ø³µ½¡ÍË³ö¡­¡­" << std::endl;
+            std::cout << "æ¸¸æˆé”™è¯¯åœ°ç»“æŸã€‚" << std::endl;
+            std::cout << "æŒ‰å›è½¦å¥é€€å‡ºâ€¦â€¦" << std::endl;
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return;
         }
         if (gameStatus == GAME_RESTART)
         {
-            std::cout << "ÓÎÏ·ÖØĞÂ¿ªÊ¼£¡" << std::endl;
-            std::cout << "ÊÇ·ñÖØĞÂÑ¡ÔñÄÑ¶È£¿(y/n)" << std::endl;
+            std::cout << "æ¸¸æˆé‡æ–°å¼€å§‹ï¼" << std::endl;
+            std::cout << "æ˜¯å¦é‡æ–°é€‰æ‹©éš¾åº¦ï¼Ÿ(y/n)" << std::endl;
             std::cin >> choice;
             if (choice == 'y' || choice == 'Y')
             {
@@ -323,8 +323,8 @@ void guessNumber::RepeatedlyPlay()
             }
         }
     }
-    std::cout << "¸ĞĞ»²ÎÓëÓÎÏ·£¡" << std::endl;
-    std::cout << "°´»Ø³µ½¡ÍË³ö¡­¡­" << std::endl;
+    std::cout << "æ„Ÿè°¢å‚ä¸æ¸¸æˆï¼" << std::endl;
+    std::cout << "æŒ‰å›è½¦å¥é€€å‡ºâ€¦â€¦" << std::endl;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get();
 }

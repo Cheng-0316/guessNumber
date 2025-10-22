@@ -1,4 +1,4 @@
-#ifndef GUESS_NUMBER_H
+ï»¿#ifndef GUESS_NUMBER_H
 #define GUESS_NUMBER_H
 
 #define GAME_VERSION "2.1.2"
@@ -19,6 +19,8 @@
 #define NORMAL_LIMITED_TIMES 7
 #define HARD_LIMITED_TIMES 8
 
+#include <string>
+
 class guessNumber
 {
     int gameStatus;
@@ -27,40 +29,40 @@ class guessNumber
     int guessNumber, minGuessLimit, maxGuessLimit;
     int wealth;
     private:
-        //Ìá³öÌØÊâÊäÈë
+        //æå‡ºç‰¹æ®Šè¾“å…¥
         void SpecialInputJudgement(std::string input);
-        //ÊäÈëstring×ªint
+        //è¾“å…¥stringè½¬int
         int InputStringtoInt(std::string input);
-        //Ñ¡ÔñÄÑ¶È
+        //é€‰æ‹©éš¾åº¦
         void ChooseDifficulty();
-        //ÄÚÖÃÄÑ¶ÈÌî³ä
+        //å†…ç½®éš¾åº¦å¡«å……
         void InbuiltDifficultyFilling();
-        //ÓÃ»§×Ô¶¨Òå×î´óËæ»úÖµ
+        //ç”¨æˆ·è‡ªå®šä¹‰æœ€å¤§éšæœºå€¼
         void SetUserDefinedMaxRandom();
-        //ÓÃ»§×Ô¶¨Òå×î´ó²Â²â´ÎÊı
+        //ç”¨æˆ·è‡ªå®šä¹‰æœ€å¤§çŒœæµ‹æ¬¡æ•°
         void SetUserDefinedMaxGuessLimit();
-        //ÖØÖÃÄÑ¶È
+        //é‡ç½®éš¾åº¦
         void ResetDifficulty();
-        //ÉèÖÃÄÑ¶È
+        //è®¾ç½®éš¾åº¦
         void SetDifficulty();
-        //Éú³ÉËæ»úÊı
+        //ç”Ÿæˆéšæœºæ•°
         void GenerateRandom();
-        //ÅĞ¶ÏÓÃ»§µÄÊäÈëÖµÊÇ·ñÔÚ¹æ¶¨·¶Î§ÄÚ
+        //åˆ¤æ–­ç”¨æˆ·çš„è¾“å…¥å€¼æ˜¯å¦åœ¨è§„å®šèŒƒå›´å†…
         bool RangeJudgement(int inputNumber);
-        //ÅĞ¶ÏÓÃ»§µÄ²Â²âÖµÏà¶Ô±»²ÂÊıµÄ´óĞ¡
+        //åˆ¤æ–­ç”¨æˆ·çš„çŒœæµ‹å€¼ç›¸å¯¹è¢«çŒœæ•°çš„å¤§å°
         bool SizeJudgement();
-        //´¦ÀíÓÃ»§²Â²âÖµ
+        //å¤„ç†ç”¨æˆ·çŒœæµ‹å€¼
         void DealPlayerGuess();
         //
         void WealthIncrease();
-        //½øĞĞÒ»´ÎÓÎÏ·
+        //è¿›è¡Œä¸€æ¬¡æ¸¸æˆ
         void SinglePlay();
-        //µ¥´ÎÓÎÏ·½âÊÍ´¦Àí
+        //å•æ¬¡æ¸¸æˆè§£é‡Šå¤„ç†
         void SingleEndDealing();
     public:
-        //»úÆ÷¶ş·Ö·¨ËÑË÷ÑİÊ¾
+        //æœºå™¨äºŒåˆ†æ³•æœç´¢æ¼”ç¤º
         void ComputerGuessDemo();
-        //ÖØ¸´ÓÎÍæÖ±ÖÁÍæ¼Ò×ÔÖ÷ÍË³ö
+        //é‡å¤æ¸¸ç©ç›´è‡³ç©å®¶è‡ªä¸»é€€å‡º
         void RepeatedlyPlay();
 };
 
