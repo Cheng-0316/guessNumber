@@ -19,7 +19,7 @@
 #include <random>
 #include <string>
 
-#include "guessNumber.h"
+#include "guessNumber.hpp"
 
 using std::cin;
 using std::cout;
