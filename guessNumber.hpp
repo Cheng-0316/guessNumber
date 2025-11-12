@@ -1,5 +1,8 @@
-﻿#ifndef GUESS_NUMBER_H
-#define GUESS_NUMBER_H
+#ifndef GUESS_NUMBER_HPP
+#define GUESS_NUMBER_HPP
+
+#include <string>
+#include <vector>
 
 #define GAME_VERSION "2.1.2"
 
@@ -19,14 +22,24 @@
 #define NORMAL_LIMITED_TIMES 7
 #define HARD_LIMITED_TIMES 8
 
-#include <string>
+//特殊输入列表
+const std::vector<std::string> specialInput_exit =
+{"exit", "quit",};
+//特殊输入列表
+const std::vector<std::string> specialInput_restart =
+{"res", "restart",};
 
 class guessNumber
 {
+    //保存游戏状态
     int gameStatus;
+    //保存难度相关数据
     int recoveryGuessLimit, recoveryMax;
+    //保存当前难度数据
     int difficulty, limitedGuessTimes, randomNumber;
+    //保存当前猜测数据
     int guessNumber, minGuessLimit, maxGuessLimit;
+    //玩家财富值
     int wealth;
     private:
         //提出特殊输入
@@ -64,6 +77,8 @@ class guessNumber
         void ComputerGuessDemo();
         //重复游玩直至玩家自主退出
         void RepeatedlyPlay();
+        //返回当前游戏状态
+        int ReturnGameStatus() { return gameStatus; }
 };
 
 #endif

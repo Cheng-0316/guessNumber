@@ -1,8 +1,11 @@
-﻿#include <iostream>
+#include <filesystem>
+#include <iostream>
+#include <fstream>
 #include <random>
 #include <string>
 
-#include "guessNumber.h"
+#include "guessNumber.hpp"
+#include "generalFunctions.hpp"
 
 void guessNumber::SpecialInputJudgement(std::string input)
 {
@@ -26,7 +29,7 @@ int guessNumber::InputStringtoInt(std::string input)
     catch(const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
-        std::cout << "输入不可识别，" << std::endl;
+        Print("输入不可识别，\n");
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         gameStatus = INPUT_UNAVAILABLE;
@@ -284,6 +287,14 @@ void guessNumber::ComputerGuessDemo()
 
 void guessNumber::RepeatedlyPlay()
 {
+    if (!FileCreat("config.ini"))
+    {
+        std::cerr << "文件" <<"savedata.txt" << "创建失败，游戏将使用默认配置。" << std::endl;
+    }
+    if (!FileCreat("savedata.txt"))
+    {
+        std::cerr << "文件" <<"savedata.txt" << "创建失败，游戏记录功能将无法使用。" << std::endl;
+    }
     char choice;
     std::cout << "游戏开始！版本：" << GAME_VERSION << std::endl;
     SetDifficulty();
