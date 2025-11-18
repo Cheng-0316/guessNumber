@@ -6,7 +6,7 @@
 
 #include "nlohmann/json.hpp"
 
-#define GAME_VERSION "2.3.0"
+#define GAME_VERSION "2.3.1"
 
 #define INPUT_UNAVAILABLE 1
 #define GAME_ERROR 2

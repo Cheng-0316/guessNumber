@@ -23,6 +23,14 @@ guessNumber myGame;
 
 int main()
 {
+    cout << "该项目使用了 nlohmann 的 json 项目" << endl;
+    cout << "链接：https://github.com/nlohmann/json" << endl;
+    cout << "版本：v";
+    cout << NLOHMANN_JSON_VERSION_MAJOR;cout << ".";
+    cout << NLOHMANN_JSON_VERSION_MINOR;cout << ".";
+    cout << NLOHMANN_JSON_VERSION_PATCH << endl;
+    cout << "协议：MIT" << endl;
+    
     myGame.RepeatedlyPlay();
     return 0;
 }
