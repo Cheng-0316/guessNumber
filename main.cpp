@@ -75,13 +75,18 @@ int main()
                 
                 /*
                 // ===== 版本检查与兼容处理 =====
-                int sv_major = 0, sv_minor = 0, sv_patch = 0;
+                int sv_major = -1, sv_minor = -1, sv_patch = -1;
                 if (parsed_json.contains("version") && parsed_json["version"].is_object())
                 {
                     auto &v = parsed_json["version"];
                     if (v.contains("major") && v["major"].is_number()) sv_major = v["major"].get<int>();
                     if (v.contains("minor") && v["minor"].is_number()) sv_minor = v["minor"].get<int>();
                     if (v.contains("patch") && v["patch"].is_number()) sv_patch = v["patch"].get<int>();
+                }
+                else
+                {
+                    cout << "存档中未找到版本信息，无法判断兼容性，将尝试读取已知字段。" << endl;
+                    // 这里可以选择是否取消读档或继续尝试读取（目前选择继续尝试读取）
                 }
 
                 // 完全相同版本
@@ -145,7 +150,7 @@ int main()
         }
 		else
         {
-            std::cerr << "存档文件存在但似乎无法打开，游戏将从0开始，且不进行保存。" << std::endl;
+            std::cerr << "程序找到了存档文件，但无法将其打开，因此游戏将不保存进度，且从0开始。" << std::endl;
             saveAvailable = false;
         }
 	}
@@ -202,11 +207,11 @@ int main()
     else
     {
         cout << "基于读档时的错误，存档不进行保存。" << endl;
-        cout << "如果您想保存游戏进度，请将以下输出复制到文件：saveDataPath 中。" << endl;
+        cout << "如果您想保存游戏进度，请将以下输出复制到文件 " << saveDataPath << " 中。" << endl;
         cout << saveData_json.dump(4) << std::endl;
-        cout << "输出到此为止。" << endl;
     }
     
+    // cout << "欢迎" << endl;
     cout << "按下回车键推退出。";
     cin.ignore();
     cin.get();
