@@ -102,9 +102,9 @@ void guessNumber::SetDifficulty()
                     gameStatus = INPUT_UNAVAILABLE;
                     continue;
                 }
-                if (recoveryMin == INT_MIN && recoveryMax == INT_MAX)
+                if (recoveryMin == INT_MIN || recoveryMax == INT_MAX)
                 {
-                    Println("范围过大可能会导致游戏无法正常进行，请重新输入。");
+                    Println("输入的数字为游戏所能储存的最值，会使游戏无法正常进行，请重新输入。");
                     gameStatus = INPUT_UNAVAILABLE;
                     continue;
                 }
@@ -250,7 +250,7 @@ void guessNumber::WealthIncrease()
     {
         baseIncrease = 1; //至少增加1点财富
     }
-    Println("   来自基础奖励：" + std::to_string(baseIncrease) + "。");
+    Println("   来自基础奖励：" + std::to_string(baseIncrease));
     // 基于猜测次数的额外奖励
     //基于 log2Range 计算，不使用 recoveryLimitedTimes，否则会导致在用户自定义模式下刷分
     //用户可以设置一个非常大的范围和一个非常小的猜测次数限制，导致 log2Range 很大但 guessTimes 很小，从而获得大量财富增加
@@ -260,7 +260,7 @@ void guessNumber::WealthIncrease()
     {
         double guessEfficiency = static_cast<double>(remainingGuesses) / standardGuessTimes;
         fortuneIncrease = static_cast<int>(std::round(guessEfficiency * COEFFICIENT));
-        Println("   来自运气奖励：" + std::to_string(fortuneIncrease) + "。");
+        Println("   来自运气奖励：" + std::to_string(fortuneIncrease));
     }
 
     Print("目前财富由" + std::to_string(saveData.wealth));
