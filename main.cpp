@@ -11,7 +11,7 @@
 #include <fstream>
 #include <string>
 
-#include "nlohmann/json.hpp"
+#include "json.hpp"
 #include "guessNumber.hpp"
 
 using std::cin;
