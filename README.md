@@ -25,4 +25,4 @@ v4.0.1
 使用支持 C++17 的编译器（如 g++、clang++ 或 MSVC）：
 
 ```bash
-g++ -std=c++17 main.cpp guessNumber.hpp guessNumber.cpp nlohmann/json.hpp -o main.exe
+g++ -std=c++17 main.cpp guessNumber.hpp guessNumber.cpp json.hpp -o main.exe
